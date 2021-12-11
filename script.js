@@ -16,11 +16,10 @@ const special = [...Array(15)]
   .concat([...Array(7)].map((val, i) => String.fromCharCode(i + 58)));
 
 var chosenLength;
-var chosenCategories = special.concat(lowerCase);
+var chosenCategories;
 var finalPassword;
 
 // TODO: Improve validation for password length (currently accepts non-numeric input from user)
-// TODO: Remove all instances of 'console.log()' once code is working
 
 // Prompts the user to choose a password length between 8 and 128 characters long
 const chooseLength = function (userInputLength) {
@@ -61,6 +60,8 @@ const chooseCategories = function () {
   }
 };
 
+
+// Takes two arguments, 'n' and Builds the user's password by declaring an empty string, then randomly selecting items from the 'chosenCategories' array and concatenating them. 
 var buildPassword = function (n, arr) {
   var i = 0;
   var growingPassword = "";
@@ -69,32 +70,17 @@ var buildPassword = function (n, arr) {
     growingPassword = growingPassword.concat(chosenCategories[randomNumber]);
     i++;
   }
-  console.log(growingPassword);
+  console.log(growingPassword); // Logs to console
   finalPassword = growingPassword;
 };
 
-buildPassword(25, chosenCategories);
-console.log(finalPassword)
-
-// var buildPassword = function(n, arr) {
-//   var i = 0;
-//   var growingPassword = '';
-//   while (i < n) {
-//     growingPassword = growingPassword + randomNumber(arr);
-//     i++;
-//   }
-//   console.log(growingPassword);
-//   return growingPassword;
-// }
-
-// finalPassword = buildPassword(chosenLength, chosenCategories)
-
-// var generatePassword = function() {
-//     chooseLength();
-//     chooseCategories();
-//     buildPassword();
-//     return finalPassword;
-// }
+var generatePassword = function () {
+  chooseLength();
+  chooseCategories();
+  buildPassword(chosenLength, chosenCategories);
+  console.log(finalPassword) // Logs to console
+  return finalPassword;
+};
 
 // Write password to the #password input
 function writePassword() {
