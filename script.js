@@ -15,46 +15,74 @@ const special = [...Array(15)]
   .map((val, i) => String.fromCharCode(i + 33))
   .concat([...Array(7)].map((val, i) => String.fromCharCode(i + 58)));
 
+var chosenLength;
+var chosenCategories = special.concat(lowerCase);
+var finalPassword;
+
 // TODO: Improve validation for password length (currently accepts non-numeric input from user)
 // TODO: Remove all instances of 'console.log()' once code is working
+
 // Prompts the user to choose a password length between 8 and 128 characters long
-function choosePasswordLength() {
-  var passwordLength = prompt("Choose your password length.");
-  if (passwordLength < 8) {
+const chooseLength = function(userInputLength) {
+  var userInputLength = prompt("Choose your password length.");
+  if (userInputLength < 8) {
     alert("Your password cannot be less than 8 characters.");
-    choosePasswordLength();
-  } else if (passwordLength > 128) {
+    chooseLength();
+  } else if (userInputLength > 128) {
     alert("Your password cannot be more than 128 characters.");
-    choosePasswordLength();
+    chooseLength();
   } else {
-    console.log(passwordLength);
-    return passwordLength;
+    console.log(userInputLength)
+    chosenLength = userInputLength;
   }
 }
 
 // Function to concatenate array(s) of upperCase; lowerCase; numbers; and special
-
-function chooseCategories() {
-  var chosenCategories = [];
+const chooseCategories = function () {
+    var growingArray = [];
   if (confirm("Do you want your password to contain upper case letters?")) {
-    chosenCategories = chosenCategories.concat(upperCase);
+    growingArray = growingArray.concat(upperCase);
   }
   if (confirm("Do you want your password to contain lower case letters?")) {
-    chosenCategories = chosenCategories.concat(lowerCase);
+    growingArray = growingArray.concat(lowerCase);
   }
   if (confirm("Do you want your password to contain numbers?")) {
-    chosenCategories = chosenCategories.concat(numbers);
+    growingArray = growingArray.concat(numbers);
   }
   if (confirm("Do you want your password to contain special characters?")) {
-    chosenCategories = chosenCategories.concat(special);
+    growingArray = growingArray.concat(special);
   }
-  if (chosenCategories.length == 0) {
+  if (growingArray.length == 0) {
       alert("You must choose at least one category.");
       chooseCategories()
   } else {
-      return log(chosenCategories);
+    console.log(growingArray)  
+    chosenCategories = growingArray;
   }
 }
+
+
+var getRandomCharacter = function() {
+  ;
+  return randomCharacter;
+} 
+
+
+console.log(chosenCategories);
+console.log(chosenCategories[Math.floor[Math.random() * chosenCategories.length]]);
+
+// Function to choose n random items from the chosenCategories array, where n = chooseLength
+// const buildPassword = function () {
+//     var growingPassword = '';
+//     var randomCharacter = chosenCategories[Math.floor[Math.random()*chosenCategories.length]];
+// }
+
+// var generatePassword = function() {
+//     chooseLength();
+//     chooseCategories();
+//     buildPassword();
+//     return finalPassword;
+// }
 
 // Write password to the #password input
 function writePassword() {
@@ -67,13 +95,13 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 /*
-  TODO: series of prompts
+  TODONE: series of prompts
     TODONE: select length 
       TODONE: between 8 and 128 characters
-    TODO: character types to include
+    TODONE: character types to include
       lowercase; uppercase; numeric; special characters
     TODO: validates answers
-      TODO: at least one selected
+      TODONE: at least one selected
   TODO: generates password matching criteria
     TODO: either displayed in alert or written to page
 */
