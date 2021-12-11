@@ -23,7 +23,7 @@ var finalPassword;
 // TODO: Remove all instances of 'console.log()' once code is working
 
 // Prompts the user to choose a password length between 8 and 128 characters long
-const chooseLength = function(userInputLength) {
+const chooseLength = function (userInputLength) {
   var userInputLength = prompt("Choose your password length.");
   if (userInputLength < 8) {
     alert("Your password cannot be less than 8 characters.");
@@ -32,14 +32,14 @@ const chooseLength = function(userInputLength) {
     alert("Your password cannot be more than 128 characters.");
     chooseLength();
   } else {
-    console.log(userInputLength)
+    console.log(userInputLength);
     chosenLength = userInputLength;
   }
-}
+};
 
 // Function to concatenate array(s) of upperCase; lowerCase; numbers; and special
 const chooseCategories = function () {
-    var growingArray = [];
+  var growingArray = [];
   if (confirm("Do you want your password to contain upper case letters?")) {
     growingArray = growingArray.concat(upperCase);
   }
@@ -53,29 +53,41 @@ const chooseCategories = function () {
     growingArray = growingArray.concat(special);
   }
   if (growingArray.length == 0) {
-      alert("You must choose at least one category.");
-      chooseCategories()
+    alert("You must choose at least one category.");
+    chooseCategories();
   } else {
-    console.log(growingArray)  
+    console.log(growingArray);
     chosenCategories = growingArray;
   }
-}
+};
 
+var buildPassword = function (n, arr) {
+  var i = 0;
+  var growingPassword = "";
+  while (i < n) {
+    var randomNumber = Math.floor(Math.random() * arr.length);
+    growingPassword = growingPassword.concat(chosenCategories[randomNumber]);
+    i++;
+  }
+  console.log(growingPassword);
+  finalPassword = growingPassword;
+};
 
-var getRandomCharacter = function() {
-  ;
-  return randomCharacter;
-} 
+buildPassword(25, chosenCategories);
+console.log(finalPassword)
 
-
-console.log(chosenCategories);
-console.log(chosenCategories[Math.floor[Math.random() * chosenCategories.length]]);
-
-// Function to choose n random items from the chosenCategories array, where n = chooseLength
-// const buildPassword = function () {
-//     var growingPassword = '';
-//     var randomCharacter = chosenCategories[Math.floor[Math.random()*chosenCategories.length]];
+// var buildPassword = function(n, arr) {
+//   var i = 0;
+//   var growingPassword = '';
+//   while (i < n) {
+//     growingPassword = growingPassword + randomNumber(arr);
+//     i++;
+//   }
+//   console.log(growingPassword);
+//   return growingPassword;
 // }
+
+// finalPassword = buildPassword(chosenLength, chosenCategories)
 
 // var generatePassword = function() {
 //     chooseLength();
