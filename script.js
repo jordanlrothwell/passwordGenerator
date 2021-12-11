@@ -15,16 +15,20 @@ const special = [...Array(15)]
   .map((val, i) => String.fromCharCode(i + 33))
   .concat([...Array(7)].map((val, i) => String.fromCharCode(i + 58)));
 
+// Declares global placeholder variables for the functions which follow
 var chosenLength;
 var chosenCategories;
 var finalPassword;
 
-// TODO: Improve validation for password length (currently accepts non-numeric input from user)
-
 // Prompts the user to choose a password length between 8 and 128 characters long
 const chooseLength = function (userInputLength) {
   var userInputLength = prompt("Choose your password length.");
-  if (userInputLength < 8) {
+  if (userInputLength === null) {
+    return;
+  } else if (isNaN(userInputLength)) {
+    alert("Please enter a number between 8 and 128.");
+    chooseLength();
+  } else if (userInputLength < 8) {
     alert("Your password cannot be less than 8 characters.");
     chooseLength();
   } else if (userInputLength > 128) {
@@ -60,8 +64,7 @@ const chooseCategories = function () {
   }
 };
 
-
-// Takes two arguments, 'n' and Builds the user's password by declaring an empty string, then randomly selecting items from the 'chosenCategories' array and concatenating them. 
+// Takes two arguments, 'n' and Builds the user's password by declaring an empty string, then randomly selecting items from the 'chosenCategories' array and concatenating them.
 var buildPassword = function (n, arr) {
   var i = 0;
   var growingPassword = "";
@@ -78,7 +81,7 @@ var generatePassword = function () {
   chooseLength();
   chooseCategories();
   buildPassword(chosenLength, chosenCategories);
-  console.log(finalPassword) // Logs to console
+  console.log(finalPassword); // Logs to console
   return finalPassword;
 };
 
@@ -100,6 +103,6 @@ generateBtn.addEventListener("click", writePassword);
       lowercase; uppercase; numeric; special characters
     TODO: validates answers
       TODONE: at least one selected
-  TODO: generates password matching criteria
-    TODO: either displayed in alert or written to page
+  TODONE: generates password matching criteria
+    TODONE: either displayed in alert or written to page
 */
